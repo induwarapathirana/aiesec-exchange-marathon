@@ -261,6 +261,10 @@ def main():
                 # Render the bar chart using Streamlit
                 st.plotly_chart(fig_3, use_container_width=True)
 
+            
+            #Footer
+            st.write("<p style='text-align: center;'>Made with ❤️ by &lt;/Dev.Team&gt; of AIESEC in Sri Lanka</p>", unsafe_allow_html=True)
+
         else:
             st.error("The 'Entity' column does not exist in the loaded data.")
     else:
