@@ -16,13 +16,22 @@ def load_data(sheet_url):
         return None
 
 # Generate Bar Chart
+import plotly.express as px
+
 def generate_grouped_bar_chart(data, entity):
+    # Define color map for each entity
+    
     filtered_df = data[data['Entity'] == entity]
     fig = px.bar(filtered_df, x='Function', y=['Applied', 'Approved', 'Unique_LCs'],
                  title=f'Grouped Bar Chart for {entity}',
                  labels={'value': 'Count', 'Function': 'Function'},
-                 barmode='group')
+                 barmode='group',
+                 )
+    
+    
+    
     return fig
+
 
 # Function to create a bar chart based on the specified metric
 def create_bar_chart_seperate(df, entity, metric, title):
@@ -40,8 +49,24 @@ def create_bar_chart(entity_sum):
     df_entity_sum.rename(columns={'index': 'Entity'}, inplace=True)
     
     # Create a bar chart using Plotly Express
-    fig = px.bar(df_entity_sum, x='Entity', y='Total', title='Total Score', labels={'Entity': 'Entity', 'Total': 'Total Points'})
+    fig = px.bar(df_entity_sum, x='Entity', y='Total', title='Total Score', labels={'Entity': 'Entity', 'Total': 'Total Points'}, color='Entity', color_discrete_map={
+                'CC': '#ffdabc',
+                'CN': '#cfbaf0',
+                'CS': '#90dbf4',
+                'USJ': '#efeaa9',
+                'Kandy': '#a3c4f3',
+                'Ruhuna': '#a6f2ae',
+                'SLIIT': '#f1c0e8',
+                'NSBM': '#8eecf5',
+                'NIBM': '#98f5e1',
+                'Rajarata': '#ffcfd2'
+    })
+
+            # Hide the legend
+    fig.update_layout(showlegend=False)
+    
     return fig
+
 
 # Function to calculate sum of points and unique LCs for each entity
 def calculate_entity_sum(df):
@@ -125,14 +150,29 @@ def count_unique_lcs_by_entity(df, selected_function):
     return unique_lcs_counts
 
 
-icon_path = 'https://aiesec.lk/data/dist/images/favicon.png'
+icon_path = 'https://aiesec.lk/data/dist/images/exchange_marathon.png'
+
+entity_colors={
+                'CC': '#ffdabc',
+                'CN': '#cfbaf0',
+                'CS': '#90dbf4',
+                'USJ': '#efeaa9',
+                'Kandy': '#a3c4f3',
+                'Ruhuna': '#a6f2ae',
+                'SLIIT': '#f1c0e8',
+                'NSBM': '#8eecf5',
+                'NIBM': '#98f5e1',
+                'Rajarata': '#ffcfd2'
+            }
+
 # Main Streamlit app
 def main():
     st.set_page_config(
     layout="wide",
     page_title="Exchange Marathon Leaderboard - AIESEC in Sri Lanka",
     page_icon= icon_path,
-)
+    )   
+
     st.title("Exchange Marathon Leaderboard - AIESEC in Sri Lanka")
 
 
@@ -178,7 +218,11 @@ def main():
             df_entity_applied_total.rename(columns={'index': 'Entity'}, inplace=True)
 
             # Create a colored bar chart using Plotly Express
-            fig = px.bar(df_entity_applied_total, x='Entity', y='Total_Applied', title='Total Applied by Entity', color='Entity')
+            fig = px.bar(df_entity_applied_total, x='Entity', y='Total_Applied', title='Total Applied by Entity', labels={'Entity': 'Entity', 'Total_Applied': 'Applications'}, color='Entity', color_discrete_map=entity_colors)
+
+            # Hide the legend
+            fig.update_layout(showlegend=False)
+
 
             # Barchart 2: APD
             # Calculate total 'Approved' related to each entity
@@ -190,7 +234,10 @@ def main():
             df_entity_approved_total.rename(columns={'index': 'Entity'}, inplace=True)
 
             # Create a colored bar chart using Plotly Express
-            fig_approved = px.bar(df_entity_approved_total, x='Entity', y='Total_Approved', title='Total Approved by Entity', color='Entity')
+            fig_approved = px.bar(df_entity_approved_total, x='Entity', y='Total_Approved', title='Total Approved by Entity', labels={'Entity': 'Entity', 'Total_Approved': 'Approvals'},color='Entity', color_discrete_map=entity_colors)
+
+            # Hide the legend
+            fig_approved.update_layout(showlegend=False)
 
             # Barchart 3: Unique LCs
             # Calculate total 'Unique_LCs' related to each entity
@@ -202,7 +249,10 @@ def main():
             df_entity_unique_lcs_total.rename(columns={'index': 'Entity'}, inplace=True)
 
             # Create a colored bar chart using Plotly Express
-            fig_unique_lcs = px.bar(df_entity_unique_lcs_total, x='Entity', y='Total_Unique_LCs', title='Total Unique LCs by Entity', color='Entity')
+            fig_unique_lcs = px.bar(df_entity_unique_lcs_total, x='Entity', y='Total_Unique_LCs', title='Total Unique LCs by Entity', labels={'Entity': 'Entity', 'Total_Unique_LCs': 'Unique LCs'},color='Entity', color_discrete_map=entity_colors)
+
+            # Hide the legend
+            fig_unique_lcs.update_layout(showlegend=False)
 
             # Display the bar charts using Plotly Chart
             col1, col2, col3 = st.columns(3)
@@ -232,22 +282,22 @@ def main():
             applied_counts = count_applied_by_entity(data, selected_function)
 
             # Create a bar chart using Plotly Express
-            fig_1 = px.bar(applied_counts, x='Entity', y='Count_Applied', title=f'Applications by Entity for {selected_function} Function')
-
+            fig_1 = px.bar(applied_counts, x='Entity', y='Count_Applied', title=f'Applications by Entity for {selected_function} Function',labels={'Entity': 'Entity', 'Count_Applied': 'Applications'}, color='Entity', color_discrete_map=entity_colors)
+            fig_1.update_layout(showlegend=False)
             # Barchart 5: APD by Function
             # Get the count of 'Approved' related to each entity based on the selected function
             approved_counts = count_approved_by_entity(data, selected_function)
 
             # Create a bar chart using Plotly Express
-            fig_2 = px.bar(approved_counts, x='Entity', y='Count_Approved', title=f'Approvals by Entity for {selected_function} Function')
-
+            fig_2 = px.bar(approved_counts, x='Entity', y='Count_Approved', title=f'Approvals by Entity for {selected_function} Function',labels={'Entity': 'Entity', 'Count_Approved': 'Approvals'}, color='Entity', color_discrete_map=entity_colors)
+            fig_2.update_layout(showlegend=False)
             # Barchart 6: Unique_LCs by Function
             # Get the count of 'Unique_LCs' related to each entity based on the selected function
             unique_lcs_counts = count_unique_lcs_by_entity(data, selected_function)
 
             # Create a bar chart using Plotly Express
-            fig_3 = px.bar(unique_lcs_counts, x='Entity', y='Count_Unique_LCs', title=f'No of Unique_LCs by Entity for {selected_function} Function')
-
+            fig_3 = px.bar(unique_lcs_counts, x='Entity', y='Count_Unique_LCs', title=f'No of Unique_LCs by Entity for {selected_function} Function',labels={'Entity': 'Entity', 'Count_Unique_LCs': 'Unique LCs'}, color='Entity', color_discrete_map=entity_colors)
+            fig_3.update_layout(showlegend=False)
             
 
             # Display the bar charts using Plotly Chart
