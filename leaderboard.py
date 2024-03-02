@@ -40,7 +40,7 @@ def create_bar_chart(entity_sum):
     df_entity_sum.rename(columns={'index': 'Entity'}, inplace=True)
     
     # Create a bar chart using Plotly Express
-    fig = px.bar(df_entity_sum, x='Entity', y='Total', title='Total Points by Entity', labels={'Entity': 'Entity', 'Total': 'Total Points'})
+    fig = px.bar(df_entity_sum, x='Entity', y='Total', title='Total Score', labels={'Entity': 'Entity', 'Total': 'Total Points'})
     return fig
 
 # Function to calculate sum of points and unique LCs for each entity
@@ -124,10 +124,19 @@ def count_unique_lcs_by_entity(df, selected_function):
     unique_lcs_counts.rename(columns={'Unique_LCs': 'Count_Unique_LCs'}, inplace=True)
     return unique_lcs_counts
 
+
+icon_path = 'https://aiesec.lk/data/dist/images/favicon.png'
 # Main Streamlit app
 def main():
-    st.set_page_config(layout="wide")
-    st.title("Exchange Marathon Leaderboard - AIESEC In Sri Lanka")
+    st.set_page_config(
+    layout="wide",
+    page_title="Exchange Marathon Leaderboard - AIESEC in Sri Lanka",
+    page_icon= icon_path,
+)
+    st.title("Exchange Marathon Leaderboard - AIESEC in Sri Lanka")
+
+
+
 
     # URL to your Google Sheets data
     sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRC56HsFwq-Swabo_IJMvCYdlPIxv2SKC7TmKg9eKdK1ynww7FU8i2YD9seBhZG19NjV2KsOOIk1hWk/pub?gid=1269923052&single=true&output=csv"
@@ -171,7 +180,6 @@ def main():
             # Create a colored bar chart using Plotly Express
             fig = px.bar(df_entity_applied_total, x='Entity', y='Total_Applied', title='Total Applied by Entity', color='Entity')
 
-
             # Barchart 2: APD
             # Calculate total 'Approved' related to each entity
             entity_approved_total = calculate_total_approved(data)
@@ -184,7 +192,6 @@ def main():
             # Create a colored bar chart using Plotly Express
             fig_approved = px.bar(df_entity_approved_total, x='Entity', y='Total_Approved', title='Total Approved by Entity', color='Entity')
 
-
             # Barchart 3: Unique LCs
             # Calculate total 'Unique_LCs' related to each entity
             entity_unique_lcs_total = calculate_total_unique_lcs(data)
@@ -196,9 +203,6 @@ def main():
 
             # Create a colored bar chart using Plotly Express
             fig_unique_lcs = px.bar(df_entity_unique_lcs_total, x='Entity', y='Total_Unique_LCs', title='Total Unique LCs by Entity', color='Entity')
-
-            
-
 
             # Display the bar charts using Plotly Chart
             col1, col2, col3 = st.columns(3)
@@ -228,21 +232,21 @@ def main():
             applied_counts = count_applied_by_entity(data, selected_function)
 
             # Create a bar chart using Plotly Express
-            fig_1 = px.bar(applied_counts, x='Entity', y='Count_Applied', title=f'Count of "Applied" by Entity for Function: {selected_function}')
+            fig_1 = px.bar(applied_counts, x='Entity', y='Count_Applied', title=f'Applications by Entity for {selected_function} Function')
 
             # Barchart 5: APD by Function
             # Get the count of 'Approved' related to each entity based on the selected function
             approved_counts = count_approved_by_entity(data, selected_function)
 
             # Create a bar chart using Plotly Express
-            fig_2 = px.bar(approved_counts, x='Entity', y='Count_Approved', title=f'Count of "Approved" by Entity for Function: {selected_function}')
+            fig_2 = px.bar(approved_counts, x='Entity', y='Count_Approved', title=f'Approvals by Entity for {selected_function} Function')
 
             # Barchart 6: Unique_LCs by Function
             # Get the count of 'Unique_LCs' related to each entity based on the selected function
             unique_lcs_counts = count_unique_lcs_by_entity(data, selected_function)
 
             # Create a bar chart using Plotly Express
-            fig_3 = px.bar(unique_lcs_counts, x='Entity', y='Count_Unique_LCs', title=f'Count of "Unique_LCs" by Entity for Function: {selected_function}')
+            fig_3 = px.bar(unique_lcs_counts, x='Entity', y='Count_Unique_LCs', title=f'No of Unique_LCs by Entity for {selected_function} Function')
 
             
 
@@ -261,7 +265,7 @@ def main():
                 # Render the bar chart using Streamlit
                 st.plotly_chart(fig_3, use_container_width=True)
 
-            
+            st.write("<br><br>", unsafe_allow_html=True)
             #Footer
             st.write("<p style='text-align: center;'>Made with ❤️ by &lt;/Dev.Team&gt; of AIESEC in Sri Lanka</p>", unsafe_allow_html=True)
 
