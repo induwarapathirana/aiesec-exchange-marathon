@@ -143,7 +143,7 @@ def main():
         if 'Entity' in data.columns:
 
             # Create a sidebar with a selector to choose the 'Function'
-            selected_function = st.sidebar.selectbox('Select Function', data['Function'].unique())
+            #selected_function = st.sidebar.selectbox('Select Function', data['Function'].unique())
 
             
             # Calculate entity sum
@@ -205,20 +205,22 @@ def main():
 
             with col1:
                 # Render the bar chart using Streamlit
-                st.plotly_chart(fig)
+                st.plotly_chart(fig, use_container_width=True)
 
             with col2:
                 # Render the bar chart using Streamlit
-                st.plotly_chart(fig_approved)
+                st.plotly_chart(fig_approved, use_container_width=True)
 
             with col3:
                 # Render the bar chart using Streamlit
-                st.plotly_chart(fig_unique_lcs)
+                st.plotly_chart(fig_unique_lcs, use_container_width=True)
 
 
 
             # Generate and display grouped bar chart
             #st.plotly_chart(generate_grouped_bar_chart(data, selected_entity))
+            # Create a select box to choose the 'Function'
+            selected_function = st.selectbox('Select Function', data['Function'].unique())
             
 
             # Barchart 4: APP by Function
@@ -244,22 +246,20 @@ def main():
 
             
 
-
-
             # Display the bar charts using Plotly Chart
             col1, col2, col3 = st.columns(3)
 
             with col1:
                 # Render the bar chart using Streamlit
-                st.plotly_chart(fig_1)
+                st.plotly_chart(fig_1, use_container_width=True)
 
             with col2:
                 # Render the bar chart using Streamlit
-                st.plotly_chart(fig_2)
+                st.plotly_chart(fig_2, use_container_width=True)
 
             with col3:
                 # Render the bar chart using Streamlit
-                st.plotly_chart(fig_3)
+                st.plotly_chart(fig_3, use_container_width=True)
 
         else:
             st.error("The 'Entity' column does not exist in the loaded data.")
