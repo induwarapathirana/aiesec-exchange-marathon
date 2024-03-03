@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 import plotly.express as px
 import json  # Import the json module
+import plotly.express as px
 
 
 # Loading Data
@@ -14,9 +15,6 @@ def load_data(sheet_url):
     except Exception as e:
         st.error(f"Error loading data: {str(e)}")
         return None
-
-# Generate Bar Chart
-import plotly.express as px
 
 def generate_grouped_bar_chart(data, entity):
     # Define color map for each entity
@@ -165,6 +163,21 @@ entity_colors={
                 'Rajarata': '#ffcfd2'
             }
 
+def show_guide():
+
+    st.write("Overall Walkthrough")
+    overall_gif = open("overall.gif", "rb").read()
+    st.image(overall_gif)
+
+    st.write("Wide Mode")
+    wide_gif = open("wide.gif", "rb").read()
+    st.image(wide_gif)
+
+    st.write("Change the Theme")
+    dark_gif = open("dark.gif", "rb").read()
+    st.image(dark_gif)
+
+
 # Main Streamlit app
 def main():
     st.set_page_config(
@@ -174,6 +187,10 @@ def main():
     )   
 
     st.title("Exchange Marathon Leaderboard - AIESEC in Sri Lanka")
+
+    with st.expander("**Dashboard Guide**"):
+        show_guide()
+        st.write("Click the **\"Dashboard Guide\"** again to hide the guide")
 
 
     # URL to your Google Sheets data
