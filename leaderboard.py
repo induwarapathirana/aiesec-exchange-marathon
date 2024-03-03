@@ -4,10 +4,10 @@ import requests
 import plotly.express as px
 import json  # Import the json module
 import plotly.express as px
-
+from streamlit_autorefresh import st_autorefresh
 
 # Loading Data
-@st.cache_data(ttl=30)  # 300 seconds = 5 minutes
+@st.cache_data(ttl=5)  # 300 seconds = 5 minutes
 def load_data(sheet_url):
     try:
         data = pd.read_csv(sheet_url)
@@ -192,12 +192,13 @@ def main():
         show_guide()
         st.write("Click the **\"Dashboard Guide\"** again to hide the guide")
 
-
+    st_autorefresh(interval=5 * 60 * 1000, key="data_refresh")  # Set interval to 5 minutes
     # URL to your Google Sheets data
     sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDHYB01mBIwTaAwQuMVlKkgURbsjOkvlgMyXb3kjdwofvdtjzAZP8guv8AV9sNHvdRN280Sm9weEJ1/pub?gid=0&single=true&output=csv"
 
     # Load data using the cached function
     data = load_data(sheet_url)
+    # st_autorefresh(interval=5 * 60 * 1000, key="data_refresh") 
 
     if data is not None:
         #st.write("Data loaded successfully:")
