@@ -165,15 +165,15 @@ entity_colors={
 
 def show_guide():
 
-    st.write("Overall Walkthrough")
+    st.write("1. Overall Walkthrough")
     overall_gif = open("overall.gif", "rb").read()
     st.image(overall_gif)
 
-    st.write("Wide Mode")
+    st.write("2. Wide Mode")
     wide_gif = open("wide.gif", "rb").read()
     st.image(wide_gif)
 
-    st.write("Change the Theme")
+    st.write("3. Change the Theme")
     dark_gif = open("dark.gif", "rb").read()
     st.image(dark_gif)
 
