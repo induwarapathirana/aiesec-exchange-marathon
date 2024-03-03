@@ -179,7 +179,7 @@ def main():
 
 
     # URL to your Google Sheets data
-    sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRC56HsFwq-Swabo_IJMvCYdlPIxv2SKC7TmKg9eKdK1ynww7FU8i2YD9seBhZG19NjV2KsOOIk1hWk/pub?gid=1269923052&single=true&output=csv"
+    sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRC56HsFwq-Swabo_IJMvCYdlPIxv2SKC7TmKg9eKdK1ynww7FU8i2YD9seBhZG19NjV2KsOOIk1hWk/pub?gid=1790704488&single=true&output=csv"
 
     # Load data using the cached function
     data = load_data(sheet_url)
