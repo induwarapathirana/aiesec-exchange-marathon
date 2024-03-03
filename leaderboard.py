@@ -7,7 +7,7 @@ import plotly.express as px
 
 
 # Loading Data
-@st.cache_data(ttl=10)  # 1800 seconds = 30 minutes
+@st.cache_data(ttl=300)  # 300 seconds = 5 minutes
 def load_data(sheet_url):
     try:
         data = pd.read_csv(sheet_url)
