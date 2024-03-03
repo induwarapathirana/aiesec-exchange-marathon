@@ -176,10 +176,8 @@ def main():
     st.title("Exchange Marathon Leaderboard - AIESEC in Sri Lanka")
 
 
-
-
     # URL to your Google Sheets data
-    sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRC56HsFwq-Swabo_IJMvCYdlPIxv2SKC7TmKg9eKdK1ynww7FU8i2YD9seBhZG19NjV2KsOOIk1hWk/pub?gid=1790704488&single=true&output=csv"
+    sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDHYB01mBIwTaAwQuMVlKkgURbsjOkvlgMyXb3kjdwofvdtjzAZP8guv8AV9sNHvdRN280Sm9weEJ1/pub?gid=0&single=true&output=csv"
 
     # Load data using the cached function
     data = load_data(sheet_url)
@@ -269,7 +267,7 @@ def main():
                 # Render the bar chart using Streamlit
                 st.plotly_chart(fig_unique_lcs, use_container_width=True)
 
-
+            st.subheader('Functional Analysis')
 
             # Generate and display grouped bar chart
             #st.plotly_chart(generate_grouped_bar_chart(data, selected_entity))
