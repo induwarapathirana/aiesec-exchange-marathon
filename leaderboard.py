@@ -148,7 +148,7 @@ def count_unique_lcs_by_entity(df, selected_function):
     return unique_lcs_counts
 
 
-icon_path = 'https://aiesec.lk/data/dist/images/exchange_marathon.png'
+icon_path = 'https://aiesec.lk/data/dist/images/favicon.png'
 
 entity_colors={
                 'CC': '#ffdabc',
@@ -194,7 +194,7 @@ def main():
 
     st_autorefresh(interval=5 * 60 * 1000, key="data_refresh")  # Set interval to 5 minutes
     # URL to your Google Sheets data
-    sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDHYB01mBIwTaAwQuMVlKkgURbsjOkvlgMyXb3kjdwofvdtjzAZP8guv8AV9sNHvdRN280Sm9weEJ1/pub?gid=0&single=true&output=csv"
+    sheet_url = DATA_LINK
 
     # Load data using the cached function
     data = load_data(sheet_url)
