@@ -141,11 +141,11 @@ def count_approved_by_entity(df, selected_function):
     return approved_counts
 
 # Function to calculate the count of 'Unique_LCs' related to each entity based on the selected function
-def count_unique_lcs_by_entity(df, selected_function):
-    filtered_df = df[df['Function'] == selected_function]
-    unique_lcs_counts = filtered_df.groupby('Entity')['Unique_LCs'].sum().reset_index()
-    unique_lcs_counts.rename(columns={'Unique_LCs': 'Count_Unique_LCs'}, inplace=True)
-    return unique_lcs_counts
+# def count_unique_lcs_by_entity(df, selected_function):
+#     filtered_df = df[df['Function'] == selected_function]
+#     unique_lcs_counts = filtered_df.groupby('Entity')['Unique_LCs'].sum().reset_index()
+#     unique_lcs_counts.rename(columns={'Unique_LCs': 'Count_Unique_LCs'}, inplace=True)
+#     return unique_lcs_counts
 
 
 icon_path = 'https://aiesec.lk/data/dist/images/favicon.png'
@@ -264,14 +264,15 @@ def main():
             df_entity_unique_lcs_total.reset_index(inplace=True)
             df_entity_unique_lcs_total.rename(columns={'index': 'Entity'}, inplace=True)
 
-            # Create a colored bar chart using Plotly Express
-            fig_unique_lcs = px.bar(df_entity_unique_lcs_total, x='Entity', y='Total_Unique_LCs', title='Total Unique LCs by Entity', labels={'Entity': 'Entity', 'Total_Unique_LCs': 'Unique LCs'},color='Entity', color_discrete_map=entity_colors)
+            # # Create a colored bar chart using Plotly Express
+            # fig_unique_lcs = px.bar(df_entity_unique_lcs_total, x='Entity', y='Total_Unique_LCs', title='Total Unique LCs by Entity', labels={'Entity': 'Entity', 'Total_Unique_LCs': 'Unique LCs'},color='Entity', color_discrete_map=entity_colors)
 
-            # Hide the legend
-            fig_unique_lcs.update_layout(showlegend=False)
+            # # Hide the legend
+            # fig_unique_lcs.update_layout(showlegend=False)
 
             # Display the bar charts using Plotly Chart
-            col1, col2, col3 = st.columns(3)
+            # col1, col2, col3 = st.columns(3)
+            col1, col2 = st.columns(2)
 
             with col1:
                 # Render the bar chart using Streamlit
@@ -281,9 +282,9 @@ def main():
                 # Render the bar chart using Streamlit
                 st.plotly_chart(fig_approved, use_container_width=True)
 
-            with col3:
-                # Render the bar chart using Streamlit
-                st.plotly_chart(fig_unique_lcs, use_container_width=True)
+            # with col3:
+            #     # Render the bar chart using Streamlit
+            #     st.plotly_chart(fig_unique_lcs, use_container_width=True)
 
             st.subheader('Functional Analysis')
 
@@ -309,15 +310,16 @@ def main():
             fig_2.update_layout(showlegend=False)
             # Barchart 6: Unique_LCs by Function
             # Get the count of 'Unique_LCs' related to each entity based on the selected function
-            unique_lcs_counts = count_unique_lcs_by_entity(data, selected_function)
+            # unique_lcs_counts = count_unique_lcs_by_entity(data, selected_function)
 
-            # Create a bar chart using Plotly Express
-            fig_3 = px.bar(unique_lcs_counts, x='Entity', y='Count_Unique_LCs', title=f'No of Unique_LCs by Entity for {selected_function} Function',labels={'Entity': 'Entity', 'Count_Unique_LCs': 'Unique LCs'}, color='Entity', color_discrete_map=entity_colors)
-            fig_3.update_layout(showlegend=False)
+            # # Create a bar chart using Plotly Express
+            # fig_3 = px.bar(unique_lcs_counts, x='Entity', y='Count_Unique_LCs', title=f'No of Unique_LCs by Entity for {selected_function} Function',labels={'Entity': 'Entity', 'Count_Unique_LCs': 'Unique LCs'}, color='Entity', color_discrete_map=entity_colors)
+            # fig_3.update_layout(showlegend=False)
             
 
             # Display the bar charts using Plotly Chart
-            col1, col2, col3 = st.columns(3)
+            # col1, col2, col3 = st.columns(3)
+            col1, col2 = st.columns(2)
 
             with col1:
                 # Render the bar chart using Streamlit
@@ -327,9 +329,9 @@ def main():
                 # Render the bar chart using Streamlit
                 st.plotly_chart(fig_2, use_container_width=True)
 
-            with col3:
-                # Render the bar chart using Streamlit
-                st.plotly_chart(fig_3, use_container_width=True)
+            # with col3:
+            #     # Render the bar chart using Streamlit
+            #     st.plotly_chart(fig_3, use_container_width=True)
 
             st.write("<br><br>", unsafe_allow_html=True)
             #Footer
