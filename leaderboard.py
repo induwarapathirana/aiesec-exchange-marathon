@@ -7,7 +7,7 @@ import plotly.express as px
 from streamlit_autorefresh import st_autorefresh
 
 # Loading Data
-@st.cache_data(ttl=1800)  # 300 seconds = 5 minutes
+@st.cache_data(ttl=10)  # 300 seconds = 5 minutes #1800
 def load_data(sheet_url):
     try:
         data = pd.read_csv(sheet_url)
